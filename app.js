@@ -32,7 +32,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-mongoose.connect("mongodb://127.0.0.1:27017/userDB", {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(mongoose.connect('mongodb+srv://Admin-jossymono:ilerioluwa1998@cluster0.vxjwyl0.mongodb.net/userDB', {useNewUrlParser: true, useUnifiedTopology: true});
 
 const userSchema = new mongoose.Schema({
     email: String,
@@ -218,6 +218,6 @@ app.post('/submit', function(req, res){
 
 
 
-app.listen(port, () => console.log(`secrets app listening on port ${port}!`))
+app.listen(port|| process.env.PORT, () => console.log(`secrets app listening on port ${port}!`))
 
 
