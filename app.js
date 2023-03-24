@@ -218,6 +218,6 @@ app.post('/submit', function(req, res){
 
 
 
-app.listen(port|| process.env.PORT, () => console.log(`secrets app listening on port ${port}!`))
+app.listen(port, () => console.log(`secrets app listening on port ${port}!`))
 
 
