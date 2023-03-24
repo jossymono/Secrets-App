@@ -3,6 +3,12 @@ body {
   background-color: #E8ECEF;
 }
 
+.text-center {
+  text-align: center;
+  justify-content: center;
+}
+
+
 .centered {
     padding-top: 200px;
     text-align: center;
@@ -13,4 +19,9 @@ body {
   font-size: 2rem;
   color: #fff;
   background-color: #000;
+}
+.footer {
+  text-align: center;
+  font-size: 1.5rem;
+color: #000;
 }
