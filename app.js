@@ -9,6 +9,7 @@ const passportLocalMongoose = require('passport-local-mongoose');
 const { Model } = require('mongoose');
 const Promise = require('bluebird');
 const { promisify } = require('util');
+const MongoStore = require('connect-mongo')(session);
 const findOrCreate = require('mongoose-findorcreate');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
@@ -23,16 +24,24 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
 app.use(session({
+    store: new MongoStore({ 
+        mongooseConnection: mongoose.connection }),
     secret: "Our little secret.",
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    store: new MongoStore({
+        url: 'mongodb+srv://Admin-jossymono:ilerioluwa1998@cluster0.vxjwyl0.mongodb.net/userDB',
+        autoRemove: 'interval',
+        autoRemoveInterval: 60 // in minutes
+})
 }));
+
 
 app.use(passport.initialize());
 app.use(passport.session());
 
 
-mongoose.connect(mongoose.connect('mongodb+srv://Admin-jossymono:ilerioluwa1998@cluster0.vxjwyl0.mongodb.net/userDB', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb+srv://Admin-jossymono:ilerioluwa1998@cluster0.vxjwyl0.mongodb.net/userDB', {useNewUrlParser: true, useUnifiedTopology: true});
 
 const userSchema = new mongoose.Schema({
     email: String,
@@ -218,6 +227,6 @@ app.post('/submit', function(req, res){
 
 
 
-app.listen(port, () => console.log(`secrets app listening on port ${port}!`))
+app.listen( port|| process.env.PORT, () => console.log(`secrets app listening on port ${port}!`))
 
 
