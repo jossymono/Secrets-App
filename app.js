@@ -7,14 +7,10 @@ const session = require('express-session');
 const passport = require('passport');
 const passportLocalMongoose = require('passport-local-mongoose');
 const { Model } = require('mongoose');
-const Promise = require('bluebird');
-const { promisify } = require('util');
-const MongoStore = require('connect-mongo')(session);
 const findOrCreate = require('mongoose-findorcreate');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
-
-
+//url: 'mongodb+srv://Admin-jossymono:ilerioluwa1998@cluster0.vxjwyl0.mongodb.net/userDB',
 const app = express()
 const port = 3000
 
@@ -24,25 +20,24 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
 app.use(session({
-    store: new MongoStore({ 
-        mongooseConnection: mongoose.connection }),
     secret: "Our little secret.",
     resave: false,
     saveUninitialized: false,
-    store: new MongoStore({
-        url: 'mongodb+srv://Admin-jossymono:ilerioluwa1998@cluster0.vxjwyl0.mongodb.net/userDB',
-        autoRemove: 'interval',
-        autoRemoveInterval: 60 // in minutes
-})
 }));
 
 
 app.use(passport.initialize());
 app.use(passport.session());
 
+mongoose.connect('mongodb+srv://Admin-jossymono:ilerioluwa1998@cluster0.vxjwyl0.mongodb.net/userDB', 
+{useNewUrlParser: true, useUnifiedTopology: true})
 
-mongoose.connect('mongodb+srv://Admin-jossymono:ilerioluwa1998@cluster0.vxjwyl0.mongodb.net/userDB', {useNewUrlParser: true, useUnifiedTopology: true});
 
+//mongoose.connect('mongodb+srv://Admin-jossymono:ilerioluwa1998@cluster0.vxjwyl0.mongodb.net/userDB', {useNewUrlParser: true, useUnifiedTopology: true});
+ //mongoose.connect('mongodb://127.0.0.1:27017/userDB', {useNewUrlParser: true, useUnifiedTopology: true});
+
+
+  
 const userSchema = new mongoose.Schema({
     email: String,
     password: String,
