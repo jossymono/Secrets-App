@@ -1,14 +1,16 @@
-require('dotenv').config();
+const findOrCreate = require('mongoose-findorcreate');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const ejs = require('ejs');
 const session = require('express-session');
 const passport = require('passport');
+require('dotenv').config();
 const passportLocalMongoose = require('passport-local-mongoose');
 const { Model } = require('mongoose');
-const findOrCreate = require('mongoose-findorcreate');
+
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+
 
 //url: 'mongodb+srv://Admin-jossymono:ilerioluwa1998@cluster0.vxjwyl0.mongodb.net/userDB',
 const app = express()
@@ -68,7 +70,9 @@ passport.deserializeUser(User.deserializeUser());
  
  //},
 
+
 passport.use(new GoogleStrategy({
+    
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
     callbackURL: "http://localhost:3000/auth/google/secrets",
